@@ -63,6 +63,7 @@ export const contacts = () =>
             })
 
             const datas = response.data
+            console.log(datas);
 
             let newDatas = []
 

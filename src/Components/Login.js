@@ -49,9 +49,11 @@ const Signup = ({ open, setOpen }) => {
 
     const onSubmit = async (datas) => {
         try {
+            console.log("-------------------------", datas);
             const { data } = await axiosBasicInstance.post(LOGIN_URL, datas)
             // localStorage.setItem("refreshToken", response.data.refresh)
             // localStorage.setItem("accessToken", response.data.access)
+            console.log("===========================");
             console.log(data);
 
             setOpen({ bool: false, type: "" })
