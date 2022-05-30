@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import MessageCotainer from '../MessageContainer/MessageCotainer'
 import { getMessage, sendMessages } from "../../Redux/Actions/socket.actions"
-import { GET_MESSAGES_URL, GET_SERVICE_URL, SEND_MESSAGES_URL, SERVICES_OF_THE_USER_URL } from '../../Utils/Urls'
+import { GET_MESSAGES_URL, GET_SERVICE_URL, SEND_MESSAGES_URL, SERVICES_OF_THE_SELLER_URL } from '../../Utils/Urls'
 
 const MessagesInRightSide = {
   marginTop: "30px",
@@ -51,7 +51,7 @@ function Messeges() {
   const fetchPackgesInfo = async () => {
 
     try {
-      const { data } = await useAxios.get(SERVICES_OF_THE_USER_URL)
+      const { data } = await useAxios.get(SERVICES_OF_THE_SELLER_URL)
       console.log(data);
       setUserPackages([...data])
 
@@ -84,7 +84,7 @@ function Messeges() {
       bool: true,
       type: "createAnOffer"
     })
-    
+
   }
 
 

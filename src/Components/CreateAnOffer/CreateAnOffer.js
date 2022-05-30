@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { sendMessages } from "../../Redux/Actions/socket.actions"
-import { GET_PACKAGES_OF_SERVICE_URL, SERVICES_OF_THE_USER_URL } from '../../Utils/Urls'
+import { GET_PACKAGES_OF_SERVICE_URL, SERVICES_OF_THE_SELLER_URL } from '../../Utils/Urls'
 
 
 const Sample = ({ info }) =>
@@ -56,7 +56,7 @@ const CreateAnOffer = ({ open, setOpen }) => {
     const fetchServices = async () => {
         try {
             setServiceModalTitle("Select Service")
-            const { data } = await useAxios.get(SERVICES_OF_THE_USER_URL)
+            const { data } = await useAxios.get(SERVICES_OF_THE_SELLER_URL)
             console.log("-----------------------------------------------");
             setServices(data)
         } catch (error) {
@@ -98,7 +98,7 @@ const CreateAnOffer = ({ open, setOpen }) => {
         }
     }
 
-    
+
 
     useEffect(() => {
         fetchServices()

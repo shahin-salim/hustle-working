@@ -25,6 +25,9 @@ export const FETCH_SERVICES_URL = "/services/list_service/"
 export const GET_SERVICE_URL = "/services/service/"
 
 
+
+export const FETCH_SERVICES_OF_SELLER_URL = "/services/service/"
+
 // Get the package deatils of the selected service
 export const GET_PACKAGES_OF_SERVICE_URL = "/services/scope_and_price/?service_id="
 
@@ -37,8 +40,8 @@ export const GET_USERS_IN_CONTACT_URL = "/chat/contacts"
 export const GET_USER_DETAILS_URL = "/accounts/users/"
 
 
-// get servicess of the user
-export const SERVICES_OF_THE_USER_URL = "/services/"
+// get servicess of the seller
+export const SERVICES_OF_THE_SELLER_URL = "/services/"
 
 
 // get conversation id of the chat

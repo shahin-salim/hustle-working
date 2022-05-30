@@ -2,11 +2,17 @@ import { fontSize } from '@mui/system'
 import React from 'react'
 import "./Card.css"
 import { useNavigate } from "react-router-dom"
+import Button from '@mui/material/Button';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 
 // card which shows service details
 const Card = ({ discription, id, image1, image2, seller_id, starting_at, sub_category_id, title, user }) => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const currActivePage = useSelector(state => state.currActivePage)
 
     const { username, profile_image, price } = user;
 
@@ -38,6 +44,15 @@ const Card = ({ discription, id, image1, image2, seller_id, starting_at, sub_cat
                         <div className='price' >${price}</div>
                     </div>
                 </div>
+
+                {/* 
+                curr atcive page is visiting by seller only the items created by the seller is shown. so this time
+                give this buttons for edit option
+                 */}
+                {currActivePage === "seller" && <div style={{ padding: "0px 6px 6px 6px", display: "flex" }}>
+                    <Button fullWidth variant="contained" color="error">Delete</Button>
+                    <Button fullWidth variant="contained" style={{ marginLeft: "6px" }}>Edit</Button>
+                </div>}
             </div>
 
         </div>
