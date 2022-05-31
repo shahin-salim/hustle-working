@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import DataTableMaterial from '../Components/DataTableMaterial';
 import { axiosBasicInstance } from '../Axios/AxiosBasicInstance';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Orders = () => {
@@ -19,13 +20,15 @@ const Orders = () => {
     const [backupOrders, setBackupOrders] = useState([])
     const [page, setPage] = React.useState(1);
 
+    const currActivePage = useSelector(state => state.currActivePage)
+
 
     const fetchOrderDetials = async () => {
 
         try {
             // user may have 2 roles buyer and seller.
             // if buyer order data is need pass buyer as after 'order/' url
-            const { data } = await useAxios.get("/order/buyer")
+            const { data } = await useAxios.get(`/order/${currActivePage}`)
             console.log(data);
             setOrders(data)
             setBackupOrders(data)
@@ -33,7 +36,6 @@ const Orders = () => {
         } catch (error) {
             console.log(error);
         }
-
     }
 
     const ShowOrderDetails = ({ data, index }) => {
@@ -61,9 +63,12 @@ const Orders = () => {
             } catch (error) {
                 console.log(error);
             }
-
-
         }
+        
+        useEffect(() => {
+            fetchOrderDetials()
+        }, [currActivePage])
+
         return (
             <>
                 <TableCell align="center" component="th" scope="data">
@@ -89,9 +94,6 @@ const Orders = () => {
 
 
 
-    useEffect(() => {
-        fetchOrderDetials()
-    }, [])
 
 
     return (
