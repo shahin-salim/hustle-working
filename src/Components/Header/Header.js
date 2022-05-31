@@ -66,7 +66,7 @@ const Header = () => {
         if (userStatus.sellerId) {
             dispatch(currActivatePage())
         } else {
-            setOpenForm({ bool: true, type: "seller" })
+            setOpenForm({ bool: true, type: "become_a_seller" })
         }
 
     }

@@ -43,7 +43,8 @@ const Orders = () => {
 
             try {
                 const { data } = await useAxios.post(`order/order_completed/${id}`)
-                console.log(data, "---------------");
+
+                // ========= order completion status =========
                 setOrders(
                     orders.map((value) => {
                         if (value.id == id) {
@@ -55,6 +56,8 @@ const Orders = () => {
                         return value
                     })
                 )
+                // ========= order completion status =========
+
             } catch (error) {
                 console.log(error);
             }
