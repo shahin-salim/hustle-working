@@ -13,6 +13,7 @@ import { chatsNegotiationStatus } from './Redux/Actions/Chat.Actions';
 import { contacts, receivedMessage, setSioInstance } from './Redux/Actions/socket.actions';
 import Orders from './Pages/Orders';
 import Modal from "./Components/Modal"
+import CreateGig from './Pages/CreateGig';
 
 const App = () => {
   const dispatch = useDispatch()
@@ -90,6 +91,8 @@ const App = () => {
               than 700 this route will work */}
           {screenSize < 700 && <Route path="/messages" element={<Messeges />} />}
           {/* ----------------------------------------------------------------------- */}
+
+          <Route path="/create-gig" element={<CreateGig />} />
 
         </Routes>
       </BrowserRouter>

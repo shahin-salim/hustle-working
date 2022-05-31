@@ -18,6 +18,8 @@ const Home = () => {
         // if the curr actiate page is buyer it means user act a normal user so 
         // if curr page is seller all the seller gigs are display and give  permission to edit
 
+        console.log("****************** home use Effect ***************************");
+
         if (currActivePage === "buyer") {
             dispatch(fetchServices(FETCH_SERVICES_URL))
         } else {

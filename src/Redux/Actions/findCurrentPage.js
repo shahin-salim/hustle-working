@@ -7,7 +7,7 @@ export const currActivatePage = () =>
     async (dispatch, getState) => {
         const state = getState()
 
-        console.log(state.currActivePage == "buyer" ? "seller" : "buyer");
+        console.log(state.currActivePage == "buyer" ? "seller" : "buyer", "**********************************");
 
         dispatch({
             type: CURRENTLY_ACTIVE_PAGE,

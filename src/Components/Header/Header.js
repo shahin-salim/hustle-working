@@ -17,8 +17,8 @@ import InboxIcon from '@mui/icons-material/MoveToInbox'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import StarBorder from '@mui/icons-material/StarBorder'
 import ListItemButton from '@mui/material/ListItemButton'
-import { logoutTheUser } from '../../Redux/Actions/token.action'
 import { openModal } from '../../Redux/Actions/SetupModal'
+import { logoutTheUser } from '../../Redux/Actions/token.action'
 import { currActivatePage } from '../../Redux/Actions/findCurrentPage'
 
 
@@ -65,7 +65,6 @@ const Header = () => {
     const handleSwitchToSelling = () => {
         if (userStatus.sellerId) {
             dispatch(currActivatePage())
-            // navigate("/seller")
         } else {
             setOpenForm({ bool: true, type: "seller" })
         }
@@ -123,7 +122,7 @@ const Header = () => {
                                 </Drawer>
                             </React.Fragment>
                             <div >
-                            <h2 style={{ margin: "0" }}>Hustle</h2>
+                                <h2 style={{ margin: "0" }}>Hustle</h2>
                             </div>
                             <div>
                                 <h1></h1>

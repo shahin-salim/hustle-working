@@ -7,6 +7,8 @@ import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 import Container from 'react-bootstrap/Container';
 import DataTableMaterial from '../Components/DataTableMaterial';
+import { axiosBasicInstance } from '../Axios/AxiosBasicInstance';
+import axios from 'axios';
 
 
 const Orders = () => {
@@ -35,9 +37,29 @@ const Orders = () => {
     }
 
     const ShowOrderDetails = ({ data, index }) => {
-        const handleFilter = () => {
-            console.log("============= filtering ============");
+        const handleFilter = async (id) => {
+            console.log("============= filtering ============", id);
             // ORDER COMPLETED  Funtionality
+
+            try {
+                const { data } = await useAxios.post(`order/order_completed/${id}`)
+                console.log(data, "---------------");
+                setOrders(
+                    orders.map((value) => {
+                        if (value.id == id) {
+                            return {
+                                ...value,
+                                buyer_completion_status: true
+                            }
+                        }
+                        return value
+                    })
+                )
+            } catch (error) {
+                console.log(error);
+            }
+
+
         }
         return (
             <>
@@ -48,9 +70,14 @@ const Orders = () => {
                 <TableCell align="center">{data.package_id.delivery_time}</TableCell>
                 <TableCell align="center">{data.date}</TableCell>
                 <TableCell align="center">
-                    <Button variant="outlined" onClick={() => handleFilter("username")}>
-                        {!data.buyer_status ? "not completed" : "true"}
-                    </Button>
+                    {
+                        !data.buyer_completion_status ?
+                            <Button variant="outlined" onClick={() => handleFilter(data.id)}>
+                                not completed
+                            </Button>
+                            :
+                            "completed"
+                    }
                 </TableCell>
             </>
         )
@@ -87,13 +114,12 @@ const Orders = () => {
                             )
                         }
                         else if (type == "Amount") {
-                            setOrders(backupOrders.filter(data => data.payment_id.amount == value))
+                            setOrders(backupOrders.filter(data => data.payment_id.amount > value))
                         }
 
                         if (!value) {
                             setOrders(backupOrders)
                         }
-
                     }}
 
                 />

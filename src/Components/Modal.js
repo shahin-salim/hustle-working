@@ -11,6 +11,7 @@ import SellerCreation from './SellerCreation'
 import { useSelector, useDispatch } from 'react-redux';
 import CreateAnOffer from './CreateAnOffer/CreateAnOffer';
 import { openModal, closeModal } from "../Redux/Actions/SetupModal"
+import CreateServiceWithOffer from './CreateServiceWithOffer';
 
 const Modal = ({ open, setOpen }) => {
 
@@ -37,6 +38,10 @@ const Modal = ({ open, setOpen }) => {
                 {open.type == "contactSeller" && <ContactSeller open={open} setOpen={setOpen} />}
                 {open.type == "createAnOffer" && <CreateAnOffer open={open} setOpen={setOpen} />}
                 {open.type == "become_a_seller" && <SellerCreation open={open} setOpen={setOpen} />}
+
+                {/* enter offer details at the time of creating service */}
+                {open.type == "enter_offer_details" && <CreateServiceWithOffer  />}
+
             </Dialog>
         </div>
     )
