@@ -20,6 +20,8 @@ const Orders = () => {
     const [backupOrders, setBackupOrders] = useState([])
     const [page, setPage] = React.useState(1);
 
+
+
     const currActivePage = useSelector(state => state.currActivePage)
 
 
@@ -28,6 +30,7 @@ const Orders = () => {
         try {
             // user may have 2 roles buyer and seller.
             // if buyer order data is need pass buyer as after 'order/' url
+
             const { data } = await useAxios.get(`/order/${currActivePage}`)
             console.log(data);
             setOrders(data)
@@ -64,10 +67,8 @@ const Orders = () => {
                 console.log(error);
             }
         }
-        
-        useEffect(() => {
-            fetchOrderDetials()
-        }, [currActivePage])
+
+
 
         return (
             <>
@@ -92,8 +93,9 @@ const Orders = () => {
     }
 
 
-
-
+    useEffect(() => {
+        fetchOrderDetials()
+    }, [currActivePage])
 
 
     return (

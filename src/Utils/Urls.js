@@ -51,7 +51,7 @@ export const GET_OR_CREATE_CONVERSATION_ID_URL = "/chat/"
 // create seller
 export const CRUD_SELLER_URL = "/seller/seller/"
 
-// ======================== BACKEND SERVER URLS ===========================
+// ======================== BACKEND SERVER URLS ENDS ===========================
 
 
 
@@ -73,7 +73,7 @@ export const SEND_MESSAGES_URL = CHAT_SERVER_URL + "/send_messages"
 export const ESTABLISH_CONNECTION = CHAT_SERVER_URL + "/establish_connection"
 
 
-// ======================== CHAT SERVER URLS ===========================
+// ======================== CHAT SERVER URLS ENDS ===========================
 
 
 
@@ -90,13 +90,3 @@ export const BASE_URL = "https://mygadgests.live/"
 
 
 
-// // Product image starting with url
-// export const SERVICE_IMAGE_URL = "https://res.cloudinary.com/dkezigu54/image/upload/v1651049203/"
-
-// // Service image starts with url
-// export const PROFILE_IMAGE_URL = "https://res.cloudinary.com/dkezigu54/image/upload/v1651119421/"
-
-// SERVER 2 URL
-// Chat server url
-
-// export const GET_USERS_IN_CONTACT_URL = CHAT_SERVER_URL + "contacts?id="

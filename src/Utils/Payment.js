@@ -49,9 +49,7 @@ export const makePayment = async (data, packageData, user, callBack) => {
                     razorpay_order_id: response.razorpay_order_id,
                     razorpay_payment_id: response.razorpay_payment_id,
                 })
-                console.log("///////////////////////////////////////////////////////////////////////////////");
                 callBack()
-                console.log("*********************************************************************************");
             } catch (error) {
                 console.log(error);
             }
