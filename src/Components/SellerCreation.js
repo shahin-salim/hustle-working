@@ -113,7 +113,7 @@ const SellerCreationForm = ({ open, setOpen }) => {
             <Container>
 
                 <Fragment>
-                    <Typography variant="h5" align="center" style={{ marginTop: "5px" }}>BECOME A SELLER</Typography>
+                    <Typography variant="h4" align="center" style={{ marginTop: "5px" }}>Become Seller</Typography>
                     {/* <Paper> */}
 
                     <Box px={3} py={2} sx={{ borderColor: "primary.main" }} >

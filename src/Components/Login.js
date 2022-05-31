@@ -118,7 +118,7 @@ const Signup = ({ open, setOpen }) => {
                                 color="primary"
                                 onClick={handleSubmit(onSubmit)}
                             >
-                                Register
+                                Login
                             </Button>
                         </Box>
 
