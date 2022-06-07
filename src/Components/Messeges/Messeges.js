@@ -47,7 +47,7 @@ function Messeges() {
 
   }, [userListenTo])
 
-  // fetch packages of the user
+  // ========== fetch packages of the user ==========
   const fetchPackgesInfo = async () => {
 
     try {
@@ -61,7 +61,9 @@ function Messeges() {
 
   }
 
-  // send message
+
+
+  // ========== send message ==========
   const handleSendMessage = () => {
 
     if (typedMessage) {
@@ -77,7 +79,8 @@ function Messeges() {
 
   }
 
-  // open modal for create offer
+
+  // ========== open modal for create offer ==========
   const handleCreateAnOffer = () => {
 
     setOpenModal({
@@ -134,11 +137,11 @@ function Messeges() {
               />
             </div>
 
-            {/* create offer */}
+            {/* =============  create offer =============== */}
             <div style={{ padding: "7px", display: "flex", justifyContent: "space-between" }}>
               <Button variant="outline-success" onClick={handleCreateAnOffer}>Create an offer</Button>{' '}
 
-              {/* send message */}
+              {/* ================ send message =================== */}
               <Button variant="primary" onClick={handleSendMessage}> Send</Button>{' '}
 
             </div>

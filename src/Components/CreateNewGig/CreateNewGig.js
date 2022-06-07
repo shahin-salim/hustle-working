@@ -12,142 +12,180 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { Fragment, useEffect, useState } from 'react'
 import { Paper, Box, Grid, Typography } from "@mui/material";
 import useAxios from "../../Axios/useAxios"
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Modal from '../Modal';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { axiosBasicInstance } from '../../Axios/AxiosBasicInstance';
+import { CRUD_SERVICES, GET_SUBCATEGORY_URL } from '../../Utils/Urls';
+import { HorizontalNonLinearStepper } from "../muiStepper"
+import axios from 'axios';
+import { stepperAction } from "../../Redux/Actions/activitySetupStepperMui"
+import { useLocation } from 'react-router-dom';
 
-function CreateNewGig() {
+
+const CreateNewGig = ({ serviceCreationData, setServiceCreationData }) => {
 
     const useTheAxios = useAxios()               //   custom hook for using axios interceptor
     const dispatch = useDispatch()
-    const data = useSelector(state => state)
+    const sellerId = useSelector(state => state.userStatus.sellerId)
     // { bool: true, type: "enter_offer_details" }
     const [open, setOpen] = useState({ bool: false })
 
+    const [subCategory, setSubCategory] = React.useState([]);
 
-    var validationSchema = Yup.object().shape({
+    const [serviceFormData, setServiceFormData] = useState({})
+    const [serviceFormDataError, setServiceFormDataError] = useState({})
 
-        GigTitle: Yup.string().required("GigTitle is required").matches(/^\S*$/, "This field should not be blank"),
-        Subcategory: Yup.string().required("Subcategory is required").matches(/^\S*$/, "This field should not be blank"),
-        Discription: Yup.string().required("Discription is required").matches(/^\S*$/, "This field should not be blank"),
-        image1: Yup.number()
-            .required("phone number is required"),
-        image2: Yup.number()
-            .required("phone number is required"),
-    });
+    const loaction = useLocation()
+    console.log(loaction.pathname);
 
-
-    // =================== offer validation schema ===================
-
-    const {
-        register,
-        control,
-        handleSubmit,
-        formState: { errors },
-        setError,
-        setValue,
-    } = useForm({
-        resolver: yupResolver(validationSchema),
-    });
+    useEffect(() => {
+        console.log((loaction.pathname), "&&&&@@@@@");
+        if ((loaction.pathname).startsWith("/edit-gig")) {
+            console.log("F%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+            console.log(serviceCreationData, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            setServiceFormData(serviceCreationData)
+        }
+    }, [serviceCreationData])
 
 
-    const onSubmit = async (data) => {
+    const onSubmit = async () => {
 
         try {
 
-            // post signup form data to database if the request is success 
-            // set access token and refresh token in the local storage
-            // and set the userStatus state in redux set as True it will indiacate is online
-            const { data } = await useTheAxios.post("SIGNUP_URL", data)
-            console.log(data)
-            // setOpen({ bool: false, type: "" })
-            // dispatch(setUserStatus(data.refresh, data.access))
+            console.log(serviceFormData);
+
+            console.log(typeof serviceFormData.image1);
+            console.log(typeof serviceFormData.image2);
+            if (typeof serviceFormData.image1 == "string") delete serviceFormData.image1
+            if (typeof serviceFormData.image2 == "string") delete serviceFormData.image2
+
+            const formData = new FormData();
+
+            for (var i in serviceFormData) {
+                if (typeof serviceFormData[i] == "object") {
+                    formData.append(`${i}`, serviceFormData[i], `${i}.png`);
+                } else {
+                    formData.append(`${i}`, serviceFormData[i]);
+                }
+            }
+            if (sellerId) formData.append("seller_id", sellerId);
+
+            // const { data } = await useTheAxios.post(CRUD_SERVICES, formData)
+
+            var method = "post"
+            var URL = "http://localhost:8000/services/create/validate/"
+            if (loaction.pathname != "/create-gig") {
+                console.log("edit git is activated");
+
+                var abcd = await axios.put("http://localhost:8000/services/?pk=17", formData)
+                console.log(abcd);
+            } else {
+                var { data } = await axios.post(URL, formData)
+            }
+
+            console.log(method, "  ***");
+
+            console.log(data);
+            setServiceCreationData(formData)
+            dispatch(stepperAction(1))
 
         } catch (error) {
+            console.log("*************************************************", error);
+            setServiceFormDataError({ ...error.response.data })
 
-            // set the backend validation error to  hook form 
-            console.log("*************************************************", error.response);
-
-            const data = error.response.data;
-
-            // if (data.Discription) setError("Discription", { type: "server", message: error.response.data.Discription[0] });
-            // if (data.image1  ) setError("image1    ", { type: "server", message: error.response.data.image1    [0] });
-            // if (data.image2) setError("image2", { type: "server", message: error.response.data.image2[0] })
-            // if (data.password) setError("password", { type: "server", message: error.response.data.password[0] });
         }
     };
 
 
 
-    const [subCategory, setSubCategory] = React.useState('');
 
-    console.log(subCategory);
+
+    const fetchSubCategories = async () => {
+
+        try {
+            const { data } = await axiosBasicInstance.get(GET_SUBCATEGORY_URL)
+            setSubCategory([...data])
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchSubCategories()
+
+    }, [])
 
 
 
     return (
-        <Container style={{ maxWidth: "1500px", padding: "2rem 0rem 1.5rem 0rem" }}>
-
-
+        <>
+            {/* <Container style={{ maxWidth: "15   00px", padding: "2rem 0rem 1.5rem 0rem" }}> */}
             <Modal open={open} setOpen={setOpen} />
+
 
 
             {/* ======================== service details ============================ */}
             <>
-                <Typography variant='h3' align='center' p={2}>SignUp</Typography>
                 <Fragment>
-                    <Paper>
-                        <Box px={3} py={2} sx={{ borderColor: "primary.main" }} >
+                    <Box px={3} py={2} sx={{ borderColor: "primary.main" }}  >
+                        <div
+                            style={{ display: "flex", justifyContent: "center" }}
+                        >
+                            <Grid
+                                container
+                                spacing={1}
+                                style={{ maxWidth: "1000px" }}
+                            >
 
-
-                            <Grid container spacing={1}>
-
-                                <Grid item xs={12} >
-                                    <Typography variant="inherit" color="textSecondary">
-                                        {errors.GigTitle?.message}
-                                    </Typography>
-                                </Grid>
-
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={12}>
                                     <TextField
                                         required
                                         id="GigTitle"
                                         name="GigTitle"
-                                        label="First Name"
+                                        label="Title"
                                         fullWidth
                                         margin="dense"
-                                        {...register("GigTitle")}
-                                        error={errors.GigTitle ? true : false}
+                                        value={serviceFormData.title}
+                                        onChange={(e) => setServiceFormData({ ...serviceFormData, title: e.target.value })}
+
                                     />
-                                    <Typography variant="inherit" color="textSecondary">
-                                        {errors.GigTitle?.message}
-                                    </Typography>
+                                    <span>{serviceFormDataError.title}</span>
                                 </Grid>
 
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={12}>
+                                    <FormControl sx={{ mt: 1, width: "100%" }}>
+                                        <InputLabel id="demo-simple-select-helper-label">Subcategory</InputLabel>
+                                        <Select
+                                            required
+                                            labelId="demo-simple-select-helper-label"
+                                            id="demo-simple-select-helper"
+                                            label="Subcategory"
+                                            value={String(serviceFormData.sub_category_id)}
+                                            onChange={(e) => setServiceFormData({ ...serviceFormData, sub_category_id: parseInt(e.target.value) })}
+                                        >
 
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={subCategory}
-                                        fullWidth
-                                        label="Age"
+                                            {/* ========================= list subcategory ========================= */}
+                                            {subCategory.map(data =>
+                                                <MenuItem
+                                                    key={data.id}
+                                                    value={data.id}
 
-                                        onChange={(e) => setSubCategory(e.target.value)}
-                                        {...register("Subcategory")}
-                                        error={errors.Subcategory ? true : false}
-                                    >
-                                        <MenuItem value={"Ten"}>Ten</MenuItem>
-                                        <MenuItem value={"Twenty"}>Twenty</MenuItem>
-                                        <MenuItem value={"Thirty"}>Thirty</MenuItem>
-                                    </Select>
+                                                >
+                                                    {data.name}
+                                                </MenuItem>
+                                            )}
+                                            {/* ========================= list subcategory ========================= */}
 
-                           
-                                    <Typography variant="inherit" color="textSecondary">
-                                        {errors.Subcategory?.message}
-                                    </Typography>
+                                        </Select>
+                                    </FormControl>
+                                    <span>{serviceFormDataError.sub_category_id}</span>
+
                                 </Grid>
 
                                 <Grid item xs={12} sm={12}>
@@ -155,18 +193,14 @@ function CreateNewGig() {
                                         required
                                         id="image1"
                                         name="image1"
-
                                         type="file"
-                                        // value={Discription}
-
                                         fullWidth
                                         margin="dense"
-                                        {...register("image1")}
-                                        error={errors.image1 ? true : false}
+                                        onChange={(e) => setServiceFormData({ ...serviceFormData, image1: e.target.files[0] })}
+
                                     />
-                                    <Typography variant="inherit" color="textSecondary">
-                                        {errors.image1?.message}
-                                    </Typography>
+                                    <span>{serviceFormDataError.image1}</span>
+
                                 </Grid>
 
                                 <Grid item xs={12} sm={12}>
@@ -174,55 +208,48 @@ function CreateNewGig() {
                                         required
                                         id="image2"
                                         name="image2"
-
                                         type="file"
-                                        // value={Discription}
-
                                         fullWidth
                                         margin="dense"
-                                        {...register("image2")}
-                                        error={errors.image2 ? true : false}
+                                        onChange={(e) => setServiceFormData({ ...serviceFormData, image2: e.target.files[0] })}
                                     />
-                                    <Typography variant="inherit" color="textSecondary">
-                                        {errors.image2?.message}
-                                    </Typography>
+                                    <span>{serviceFormDataError.image2}</span>
+
                                 </Grid>
 
                                 <Grid item xs={12} sm={12}>
-
 
                                     <TextareaAutosize
                                         aria-label="minimum height"
                                         minRows={3}
                                         placeholder="Minimum 3 rows"
-                                        {...register("Discription")}
-                                        // error={errors.Discription ? true : false}
                                         style={{ width: "100%" }}
+                                        value={serviceFormData.discription}
+
+                                        onChange={(e) => setServiceFormData({ ...serviceFormData, discription: e.target.value })}
+
                                     />
-                                    <Typography variant="inherit" color="textSecondary">
-                                        {errors.Discription?.message}
-                                    </Typography>
+                                    <span>{serviceFormDataError.discription}</span>
+
                                 </Grid>
-
-
-
                             </Grid>
-                            <Box mt={3} textAlign='center'>
-                                <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>
-                                    Register
-                                </Button>
-                            </Box>
+                        </div>
+                        <Box mt={3} textAlign='center'>
+                            <Button variant="contained" color="primary" onClick={onSubmit}>
+                                Next
+                            </Button>
                         </Box>
-                    </Paper>
+                    </Box>
                 </Fragment>
             </>
             {/* =================== service details ends ===================== */}
 
 
+            {/* </Container> */}
+
+        </>
 
 
-
-        </Container>
     )
 }
 

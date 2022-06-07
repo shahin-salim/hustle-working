@@ -6,9 +6,12 @@ import dayjs from 'dayjs';
 import { setUserStatus } from '../Redux/Actions/token.action';
 import { axiosBasicInstance } from './AxiosBasicInstance';
 import { BASE_URL } from '../Utils/Urls';
+import { logoutTheUser } from "../Redux/Actions/token.action"
+import { useNavigate } from 'react-router-dom';
 
 const useTheAxios = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const axiosInstance = axios.create({
         baseURL: BASE_URL,
@@ -35,9 +38,8 @@ const useTheAxios = () => {
                 localStorage.setItem("refreshToken", response.data.refresh)
                 config.headers.Authorization = `Bearer ${response.data.access}`
             } catch (err) {
-                localStorage.removeItem("accessToken")
-                localStorage.removeItem("refreshToken")
-                dispatch(setUserStatus(false))
+                dispatch(logoutTheUser())
+                navigate("/")
             }
         }
         return config

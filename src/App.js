@@ -15,6 +15,7 @@ import Orders from './Pages/Orders';
 import Modal from "./Components/Modal"
 import CreateGig from './Pages/CreateGig';
 
+
 const App = () => {
   const dispatch = useDispatch()
   const screenSize = useWindowSize()
@@ -23,6 +24,8 @@ const App = () => {
   const userListenTo = useSelector(state => state.userListenTo)
   const state = useSelector(state => state)
   const Socket = useSelector(state => state.Socket)
+
+
 
 
   useEffect(() => {
@@ -35,10 +38,8 @@ const App = () => {
       try {
 
         if (!Socket) {
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-          const Socket = io("https://sample.mygadgests.live/");    // connect to socket io
+          const Socket = io(CHAT_SERVER_URL);    // connect to socket io
           console.log(Socket)
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
           // set socket io instance in the redux state
           dispatch(setSioInstance(Socket));
@@ -74,26 +75,32 @@ const App = () => {
   const modalConf = useSelector(state => state.modalConf)
 
 
+
   return (
     <>
+
 
       <BrowserRouter>
         <Routes>
 
-
-          <Route exact path="/" element={<Home />} />
-          <Route path="/service/:id" element={<ProductDetail />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/orders" element={<Orders />} />
-
           {/* -----------------------------------------------------------------------
               show messages in smalll screen devices only if the size of window is less
               than 700 this route will work */}
-          {screenSize < 700 && <Route path="/messages" element={<Messeges />} />}
+
+
+          <Route exact path="/" element={<Home />} />
+          <Route path="/service/:id" element={<ProductDetail />} />
+
+          <>
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/orders" element={<Orders />} />
+            {screenSize < 700 && <Route path="/messages" element={<Messeges />} />}
+
+            <Route path="/create-gig" element={<CreateGig />} />
+            <Route path="/edit-gig/:id" element={<CreateGig />} />
+
+          </>
           {/* ----------------------------------------------------------------------- */}
-
-          <Route path="/create-gig" element={<CreateGig />} />
-
         </Routes>
       </BrowserRouter>
     </>

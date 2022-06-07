@@ -35,10 +35,6 @@ const ContactSeller = ({ open, setOpen }) => {
         }
       })
 
-      console.log("===============================");
-      console.log(data);
-      console.log("===============================");
-
       // id of that connected people is used to create messages
       const response = await useAxios.post(SEND_MESSAGES_URL, {
         sender: user.userId,
@@ -46,10 +42,6 @@ const ContactSeller = ({ open, setOpen }) => {
         message: message,
         receiver: open.otherUser
       })
-
-      console.log("**************************");
-      console.log(response);
-      console.log("**************************");
 
       navigate("/chat")
 

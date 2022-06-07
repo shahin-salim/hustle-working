@@ -1,3 +1,19 @@
+// ========================= BASE URL =========================
+
+// DJANGO
+export const BASE_URL = "https://mygadgests.live/"
+
+// CHAT SERVER
+export const CHAT_SERVER_URL = "https://sample.mygadgests.live/"
+
+// ========================= BASE URL=========================
+
+
+
+
+
+
+
 // ======================== BACKEND SERVER URLS ===========================
 
 
@@ -24,6 +40,8 @@ export const FETCH_SERVICES_URL = "/services/list_service/"
 // Get all the of service details
 export const GET_SERVICE_URL = "/services/service/"
 
+// CRUD services
+export const CRUD_SERVICES = "services/"
 
 
 export const FETCH_SERVICES_OF_SELLER_URL = "/services/service/"
@@ -51,15 +69,15 @@ export const GET_OR_CREATE_CONVERSATION_ID_URL = "/chat/"
 // create seller
 export const CRUD_SELLER_URL = "/seller/seller/"
 
+// get subcategory
+export const GET_SUBCATEGORY_URL = "subcategory/"
+
 // ======================== BACKEND SERVER URLS ENDS ===========================
 
 
 
 
 // ======================== CHAT SERVER URLS ===========================
-
-export const CHAT_SERVER_URL = "https://sample.mygadgests.live/"
-
 
 // Get chats using the sender and reciever id
 export const GET_MESSAGES_URL = CHAT_SERVER_URL + "/messages"
@@ -80,11 +98,6 @@ export const ESTABLISH_CONNECTION = CHAT_SERVER_URL + "/establish_connection"
 
 
 
-// ========================= BASE URL =========================
-
-export const BASE_URL = "https://mygadgests.live/"
-
-// ========================= BASE URL =========================
 
 
 

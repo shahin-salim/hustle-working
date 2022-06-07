@@ -89,7 +89,9 @@ export default function ServicesSidebar({ id, service }) {
     return (
         <Box sx={{ width: '100%' }}>
 
+            {/* =========== modal contact user =========== */}
             {open.bool && <Modal open={open} setOpen={setOpen} />}
+            {/* =========== modal contact user =========== */}
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs className='modify-tabs' value={value} onChange={handleChange} aria-label="basic tabs example">

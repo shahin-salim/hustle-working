@@ -17,6 +17,7 @@ import DialogContent from '@mui/material/DialogContent';
 import { Paper, Box, Grid, Typography } from "@mui/material";
 import { setUserStatus } from '../Redux/Actions/token.action';
 import DialogContentText from '@mui/material/DialogContentText';
+import axios from "axios";
 
 
 
@@ -50,7 +51,7 @@ const Signup = ({ open, setOpen }) => {
     const onSubmit = async (datas) => {
         try {
             console.log("-------------------------", datas);
-            const { data } = await axiosBasicInstance.post(LOGIN_URL, datas)
+            const { data } = await axios.post("http://localhost:8000" + LOGIN_URL, datas)
             // localStorage.setItem("refreshToken", response.data.refresh)
             // localStorage.setItem("accessToken", response.data.access)
             console.log("===========================");

@@ -62,6 +62,8 @@ const Header = () => {
         setState({ ...state, [anchor]: open });
     };
 
+
+    //  ======== switch bying and selling if the user clicked the button ========
     const handleSwitchToSelling = () => {
         if (userStatus.sellerId) {
             dispatch(currActivatePage())
@@ -143,10 +145,11 @@ const Header = () => {
                                 <span className='navabr-font-color' onClick={() => navigate("/orders")}>Orders</span>
 
                                 <span className='navabr-font-color' onClick={handleSwitchToSelling}>
-                                    {userStatus.sellerId ? "Switch to selling" : "Become a seller"}
+                                    {userStatus.sellerId ? currActivePage == "buyer" ? "Switch to selling" : "Switch to buying" : "Become a seller"}
                                 </span>
                             </>
                         }
+
                         {
                             userStatus ? <Avathar /> : !userStatus &&
                                 <>

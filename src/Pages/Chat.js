@@ -4,8 +4,6 @@ import Footer from '../Components/Footer/Footer';
 import Header from '../Components/Header/Header';
 import Messeges from '../Components/Messeges/Messeges';
 import Container from 'react-bootstrap/Container';
-import { io } from 'socket.io-client';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { socketInstance } from '../Redux/Actions/socket.actions';
 import { useWindowSize } from '../Utils/FindScreenWidth'
