@@ -26,11 +26,14 @@ import { HorizontalNonLinearStepper } from "../muiStepper"
 import axios from 'axios';
 import { stepperAction } from "../../Redux/Actions/activitySetupStepperMui"
 import { useLocation } from 'react-router-dom';
+import useTheAxios from '../../Axios/useAxios';
 
 
 const CreateNewGig = ({ serviceCreationData, setServiceCreationData }) => {
 
-    const useTheAxios = useAxios()               //   custom hook for using axios interceptor
+    const useAxios = useTheAxios()
+    //   custom hook for using axios interceptor
+
     const dispatch = useDispatch()
     const sellerId = useSelector(state => state.userStatus.sellerId)
     // { bool: true, type: "enter_offer_details" }
@@ -45,10 +48,7 @@ const CreateNewGig = ({ serviceCreationData, setServiceCreationData }) => {
     console.log(loaction.pathname);
 
     useEffect(() => {
-        console.log((loaction.pathname), "&&&&@@@@@");
         if ((loaction.pathname).startsWith("/edit-gig")) {
-            console.log("F%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-            console.log(serviceCreationData, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             setServiceFormData(serviceCreationData)
         }
     }, [serviceCreationData])
@@ -58,7 +58,6 @@ const CreateNewGig = ({ serviceCreationData, setServiceCreationData }) => {
 
         try {
 
-            console.log(serviceFormData);
 
             console.log(typeof serviceFormData.image1);
             console.log(typeof serviceFormData.image2);
@@ -76,20 +75,14 @@ const CreateNewGig = ({ serviceCreationData, setServiceCreationData }) => {
             }
             if (sellerId) formData.append("seller_id", sellerId);
 
-            // const { data } = await useTheAxios.post(CRUD_SERVICES, formData)
 
-            var method = "post"
-            var URL = "http://localhost:8000/services/create/validate/"
             if (loaction.pathname != "/create-gig") {
-                console.log("edit git is activated");
-
-                var abcd = await axios.put("http://localhost:8000/services/?pk=17", formData)
-                console.log(abcd);
+                console.log(serviceFormData.id);
+                var { data } = await useAxios.put(`services/?pk=${serviceFormData.id}`, formData)
+                console.log(data);
             } else {
-                var { data } = await axios.post(URL, formData)
+                var { data } = await useAxios.post("services/create/validate/", formData)
             }
-
-            console.log(method, "  ***");
 
             console.log(data);
             setServiceCreationData(formData)
@@ -112,7 +105,7 @@ const CreateNewGig = ({ serviceCreationData, setServiceCreationData }) => {
             const { data } = await axiosBasicInstance.get(GET_SUBCATEGORY_URL)
             setSubCategory([...data])
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
         }
     }
 

@@ -1,7 +1,7 @@
 import { axiosBasicInstance } from "../Axios/AxiosBasicInstance";
 import * as Yup from "yup";
 import { Link } from "react-router-dom"
-import useAxios from '../Axios/useAxios';
+import useTheAxios from '../Axios/useAxios';
 import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -17,12 +17,12 @@ import DialogContent from '@mui/material/DialogContent';
 import { Paper, Box, Grid, Typography } from "@mui/material";
 import { setUserStatus } from '../Redux/Actions/token.action';
 import DialogContentText from '@mui/material/DialogContentText';
-import axios from "axios";
-
 
 
 
 const Signup = ({ open, setOpen }) => {
+
+    const useAxios = useTheAxios()
 
     const dispatch = useDispatch()
     const [loginError, setLoginError] = React.useState("")
@@ -51,7 +51,7 @@ const Signup = ({ open, setOpen }) => {
     const onSubmit = async (datas) => {
         try {
             console.log("-------------------------", datas);
-            const { data } = await axios.post("http://localhost:8000" + LOGIN_URL, datas)
+            const { data } = await useAxios.post(LOGIN_URL, datas)
             // localStorage.setItem("refreshToken", response.data.refresh)
             // localStorage.setItem("accessToken", response.data.access)
             console.log("===========================");

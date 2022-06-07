@@ -21,12 +21,14 @@ import axios from 'axios'
 import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import { GET_SERVICE_URL } from '../Utils/Urls'
 import Button from '@mui/material/Button';
+import useTheAxios from '../Axios/useAxios'
 
 
 
 const CreateGig = () => {
     const location = useLocation()
     const navigate = useNavigate()
+    const useAxios = useTheAxios()
 
     const [serviceCreationData, setServiceCreationData] = useState({})
     const [packegeData, setPackageData] = useState([])
@@ -53,12 +55,11 @@ const CreateGig = () => {
 
     const fetchDataForEdit = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:8000/services/service/${id}/`)
-            console.log(data);
+            const { data } = await useAxios.get(`services/service/${id}/`)
             delete data["user"]
             console.log(data, "###################################");
             setServiceCreationData(data)
-            const response = await axios.get(`http://localhost:8000/services/scope_and_price/?service_id=${id}`)
+            const response = await useAxios.get(`services/scope_and_price/?service_id=${id}`)
             console.log(response.data);
             setEditPackge(response.data)
         } catch (err) {
@@ -79,9 +80,7 @@ const CreateGig = () => {
         try {
             console.log(temp);
             console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-            // const { data } = await useTheAxios.post(CRUD_SERVICES, formData)
-            // console.log("http://localhost:8000/services/", "  ", formData);
-            const { data } = await axios.post("http://localhost:8000/services/create/create/", serviceCreationData)
+            const { data } = await useAxios.post("services/create/create/", serviceCreationData)
             console.log(data);
 
             const updatedPackage = packegeData.map((d) => {
@@ -93,7 +92,7 @@ const CreateGig = () => {
             //  ==================================================================================
 
             console.log(packegeData);
-            const response = await axios.post("http://localhost:8000/services/scope_and_price/", updatedPackage)
+            const response = await useAxios.post("services/scope_and_price/", updatedPackage)
             console.log(response);
             navigate("/")
 

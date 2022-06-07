@@ -35,8 +35,6 @@ const PackgeForm = ({ type, packegeData, setPackageData, temp, setTemp, packageT
     const onSubmit = async () => {
         try {
             console.log(temp);
-            // const { data } = await useTheAxios.post(CRUD_SERVICES, formData)
-            // console.log("http://localhost:8000/services/", "  ", formData);
 
             // find which method wants to perform if the url is create-gig assume seller wants to create
             // service otherwise its an edit so make method as put
@@ -47,19 +45,17 @@ const PackgeForm = ({ type, packegeData, setPackageData, temp, setTemp, packageT
                 setPackageData([...packegeData, updatedPackge])
             } else {
                 delete temp["service_id"]
-                var { data } = await useAxios.put(`services/scope_and_price/`, temp)
+                console.log(temp, "temp temp temp");
+                var { data } = await useAxios.put(`services/scope_and_price/?id=${temp.id}`, temp)
             }
             setTemp({})
             dispatch(stepperAction(1))
 
         } catch (error) {
-            // setLoginError(error.response.data.detail);
             console.log(error.response);
             setError({ ...error.response.data })
         }
     };
-
-    console.log("+++++++++++", errors, "++++++++++++++");
 
     return (
         <>
