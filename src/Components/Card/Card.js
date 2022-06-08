@@ -50,10 +50,27 @@ const Card = ({ discription, id, image1, image2, seller_id, starting_at, sub_cat
                 give this buttons for edit option
                  */}
                 {currActivePage === "seller" && <div style={{ padding: "0px 6px 6px 6px", display: "flex" }}>
-                    <Button fullWidth variant="contained" color="error" onClick={(e) => {
-                        e.stopPropagation()
-                    }}>Delete</Button>
-                    <Button fullWidth variant="contained" style={{ marginLeft: "6px" }}>Edit</Button>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="error"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                        }}
+                    >
+                        Delete
+                    </Button>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        style={{ marginLeft: "6px" }}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            navigate(`/edit-gig/${id}`)
+                        }}
+                    >
+                        Edit
+                    </Button>
                 </div>}
             </div>
 
