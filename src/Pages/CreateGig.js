@@ -22,6 +22,7 @@ import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import { GET_SERVICE_URL } from '../Utils/Urls'
 import Button from '@mui/material/Button';
 import useTheAxios from '../Axios/useAxios'
+import { stepperAction } from "../Redux/Actions/activitySetupStepperMui"
 
 
 
@@ -29,6 +30,8 @@ const CreateGig = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const useAxios = useTheAxios()
+
+    const dispatch = useDispatch()
 
     const [serviceCreationData, setServiceCreationData] = useState({})
     const [packegeData, setPackageData] = useState([])
@@ -69,6 +72,10 @@ const CreateGig = () => {
 
     useEffect(() => {
         console.log("***************", (location.pathname).startsWith("/edit-gig"), "****************");
+
+        console.log("activeStep activeStep activeStep", activeStep);
+        dispatch(stepperAction(-activeStep))
+
 
         if ((location.pathname).startsWith("/edit-gig")) {
             fetchDataForEdit()
