@@ -12,8 +12,6 @@ export const CHAT_SERVER_URL = "https://sample.mygadgests.live/"
 
 
 
-
-
 // ======================== BACKEND SERVER URLS ===========================
 
 
