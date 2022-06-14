@@ -7,9 +7,7 @@ const ProductDetail = () => {
 
     return (
         <div>
-            <Header />
             <ServiceDetailsBody />
-            <Footer />
         </div>
     )
 }

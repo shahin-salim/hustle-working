@@ -23,14 +23,12 @@ const Chat = () => {
 
 	return (
 		<div>
-			<Header />
 			<Container style={{ maxWidth: '1236px', padding: '2rem 0rem 1.5rem 0rem' }}>
 				<div style={chatsStyle}>
 					<Contacts />
 					{width > 700 && <Messeges />}
 				</div>
 			</Container>
-			<Footer />
 		</div>
 	);
 };

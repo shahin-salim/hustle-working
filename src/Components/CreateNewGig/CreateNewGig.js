@@ -146,7 +146,6 @@ const CreateNewGig = ({ serviceCreationData, setServiceCreationData }) => {
                                         margin="dense"
                                         value={serviceFormData.title}
                                         onChange={(e) => setServiceFormData({ ...serviceFormData, title: e.target.value })}
-
                                     />
                                     <span>{serviceFormDataError.title}</span>
                                 </Grid>

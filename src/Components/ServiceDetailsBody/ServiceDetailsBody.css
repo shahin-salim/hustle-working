@@ -7,20 +7,6 @@
     display: flex;
 }
 
-/* flex-wrap: wrap; */
-/* padding: 13px; */
-
-@media screen and (max-width: 992px) {
-    .service-detail-body {
-        padding: 0 22px 0 22px;
-    }
-}
-
-@media screen and (max-width: 900px) {
-    .carosal-and-sidebar {
-        flex-wrap: wrap;
-    }
-}
 
 .rating-and-pic-holder {
     display: flex;
@@ -40,4 +26,21 @@
     height: 24rem;
     width: "600px";
     border: 1px solid #e4e5e7;
+}
+
+
+@media screen and (max-width: 992px) {
+    .service-detail-body {
+        padding: 0 22px 0 22px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .carosal-and-sidebar {
+        flex-wrap: wrap;
+    }
+
+    .package-sidebar-div {
+        width: 100%;
+    }
 }

@@ -44,7 +44,7 @@ export const GET_SERVICE_URL = "/services/service/"
 export const CRUD_SERVICES = "services/"
 
 
-export const FETCH_SERVICES_OF_SELLER_URL = "/services/service/"
+export const FETCH_SERVICES_OF_SELLER_URL = "/services/"
 
 // Get the package deatils of the selected service
 export const GET_PACKAGES_OF_SERVICE_URL = "/services/scope_and_price/?service_id="

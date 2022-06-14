@@ -13,19 +13,34 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { logoutTheUser } from '../Redux/Actions/token.action';
 import { useDispatch } from "react-redux"
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useSelector } from 'react-redux';
+import Modal from "../Components/Modal"
+
 
 const Avathar = () => {
     const dispatch = useDispatch()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const [openForm, setOpenForm] = React.useState({ open: true })
+
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
+    const userStatus = useSelector(state => state.userStatus)
+
     return (
         <React.Fragment>
+
+            {/* ========================================== Modal ======================================== */}
+            {openForm.bool && <Modal open={openForm} setOpen={setOpenForm} />}
+            {/* ========================================== Modal ======================================== */}
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
 
                 <Tooltip title="Account settings">
@@ -37,7 +52,8 @@ const Avathar = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        <MoreVertIcon />
+                        {/* <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> */}
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -76,16 +92,52 @@ const Avathar = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>
-                    <Avatar /> Profile
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={() => dispatch(logoutTheUser())}>
-                    <ListItemIcon>
-                        <Logout fontSize="small" />
-                    </ListItemIcon>
-                    Logout
-                </MenuItem>
+                {
+                    userStatus ?
+                        <>
+                            <MenuItem>
+                                <Avatar /> Profile
+                            </MenuItem>
+                            <Divider />
+                            <MenuItem onClick={() => dispatch(logoutTheUser())}>
+                                <ListItemIcon>
+                                    <Logout fontSize="small" />
+                                </ListItemIcon>
+                                Logout
+                            </MenuItem>
+                        </>
+                        :
+                        <>
+
+                            <MenuItem
+                                onClick={() => setOpenForm({ bool: true, type: "signup" })}
+                            >
+                                {/* <Avatar /> */}
+                                SignUp
+                            </MenuItem>
+                            {/* <Divider /> */}
+                            <MenuItem
+                                onClick={
+                                    () => setOpenForm(
+                                        {
+                                            bool: true,
+                                            type: "login"
+                                        }
+                                    )
+                                }
+                            >
+                                {/* <ListItemIcon>
+                                    <Logout fontSize="small" />
+                                </ListItemIcon> */}
+                                Login
+                            </MenuItem>
+
+                        </>
+                }
+
+
+
+
             </Menu>
         </React.Fragment>
     )

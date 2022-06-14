@@ -1,14 +1,12 @@
-import axios from "axios";
-import { axiosBasicInstance } from "../../Axios/AxiosBasicInstance";
 import { SET_SERVICES } from "../Constants/Services.constants"
 
 
 // Fetch the services showing in home page
-export const fetchServices = (URL) =>
+export const fetchServices = (URL, AXIOS) =>
     async (dispatch, getState) => {
         try {
-
-            const { data } = await axiosBasicInstance.get(URL)
+            const { data } = await AXIOS.get(URL)
+            console.log("fetched data");
             console.log(data);
 
             dispatch({
@@ -16,6 +14,7 @@ export const fetchServices = (URL) =>
                 payload: data
             })
         } catch (error) {
-            console.log(error.response.data)
+
+            console.log(error)
         }
     }

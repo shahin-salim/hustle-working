@@ -14,8 +14,11 @@ import { contacts, receivedMessage, setSioInstance } from './Redux/Actions/socke
 import Orders from './Pages/Orders';
 import Modal from "./Components/Modal"
 import CreateGig from './Pages/CreateGig';
-
-
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
+import { LabelBottomNavigation } from "./Components/BottumNavigationBar"
+import { Container } from '@mui/material';
+import "./App.css"
 const App = () => {
   const dispatch = useDispatch()
   const screenSize = useWindowSize()
@@ -81,27 +84,35 @@ const App = () => {
 
 
       <BrowserRouter>
+
+        <Header />
+
+
         <Routes>
-
-          {/* -----------------------------------------------------------------------
-              show messages in smalll screen devices only if the size of window is less
-              than 700 this route will work */}
-
 
           <Route exact path="/" element={<Home />} />
           <Route path="/service/:id" element={<ProductDetail />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/orders" element={<Orders />} />
 
-          <>
-            <Route path="/chat" element={<Chat />} />
-            <Route path="/orders" element={<Orders />} />
-            {screenSize < 700 && <Route path="/messages" element={<Messeges />} />}
 
-            <Route path="/create-gig" element={<CreateGig />} />
-            <Route path="/edit-gig/:id" element={<CreateGig />} />
+          {/* ----------------------------------------------------------
+              show messages in smalll screen devices only if the size of window is less than 700 this route will work */}
+          {screenSize < 700 && <Route path="/messages" element={<Messeges />} />}
+          {/* ---------------------------------------------------------- */}
 
-          </>
-          {/* ----------------------------------------------------------------------- */}
+          {/* =========================== Seller Router =========================== */}
+          <Route path="/create-gig" element={<CreateGig />} />
+          <Route path="/edit-gig/:id" element={<CreateGig />} />
+          {/* =========================== Seller Router =========================== */}
+
         </Routes>
+
+
+
+        {screenSize < 700 && <LabelBottomNavigation />}
+
+        <Footer />
       </BrowserRouter>
     </>
   );

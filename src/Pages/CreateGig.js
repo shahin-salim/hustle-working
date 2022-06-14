@@ -118,7 +118,6 @@ const CreateGig = () => {
 
     return <>
 
-        <Header />
 
 
         <Container style={{ maxWidth: "1500px", padding: "2rem 0rem 1.5rem 0rem" }}>
@@ -169,7 +168,6 @@ const CreateGig = () => {
         </Container>
 
 
-        <Footer />
     </>
 }
 

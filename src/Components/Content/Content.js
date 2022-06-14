@@ -28,6 +28,7 @@ const HomeBody = () => {
 
     return (
         <Container style={{ maxWidth: "1500px", padding: "2rem 0rem 1.5rem 0rem" }}>
+
             <div>
                 <h4 style={contentTitleStyle}>Most popular Gigs in Cartoons & Comics </h4>
 
@@ -37,7 +38,7 @@ const HomeBody = () => {
                     {currActivePage === "seller" &&
                         <Col sm={12} md={2} xl={2}
                             className='add-new-gig'
-                            onClick={()=> navigate("/create-gig")}
+                            onClick={() => navigate("/create-gig")}
                         >
                             <AddCircleOutlineOutlinedIcon style={{ fontSize: "8rem" }} />
                             <span>Add New Gig</span>
@@ -78,7 +79,8 @@ const HomeBody = () => {
                 </Row>
 
             </div>
-        </Container >
+        </Container>
+
     )
 }
 

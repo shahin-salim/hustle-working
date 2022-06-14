@@ -17,12 +17,12 @@ const Orders = () => {
     const useAxios = useTheAxios()
 
     const [orders, setOrders] = useState([])
-    const [backupOrders, setBackupOrders] = useState([])
     const [page, setPage] = React.useState(1);
-
-
+    const [backupOrders, setBackupOrders] = useState([])
 
     const currActivePage = useSelector(state => state.currActivePage)
+
+
 
 
     const fetchOrderDetials = async () => {
@@ -32,6 +32,7 @@ const Orders = () => {
             // if buyer order data is need pass buyer as after 'order/' url
 
             const { data } = await useAxios.get(`/order/${currActivePage}`)
+            // const { data } = await axios.get(`http://localhost:8000/order/${currActivePage}`)
             console.log(data);
             setOrders(data)
             setBackupOrders(data)
@@ -75,7 +76,7 @@ const Orders = () => {
                 <TableCell align="center" component="th" scope="data">
                     {data.package_id.service_id.user.username}
                 </TableCell>
-                <TableCell align="center">{data.payment_id.amount}</TableCell>
+                <TableCell align="center">{data.payment_id ? data.payment_id.amount : "not found"}</TableCell>
                 <TableCell align="center">{data.package_id.delivery_time}</TableCell>
                 <TableCell align="center">{data.date}</TableCell>
                 <TableCell align="center">
@@ -100,7 +101,6 @@ const Orders = () => {
 
     return (
         <>
-            <Header />
             <Container style={{ maxWidth: "1500px", padding: "2rem 0rem 1.5rem 0rem" }}>
                 <DataTableMaterial
                     tableHeading={
@@ -131,7 +131,6 @@ const Orders = () => {
 
                 />
             </ Container>
-            <Footer />
 
         </>
     )

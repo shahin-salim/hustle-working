@@ -6,11 +6,14 @@ import Content from '../Components/Content/Content'
 import { fetchServices } from '../Redux/Actions/fetch.services'
 import { useSelector } from 'react-redux'
 import { FETCH_SERVICES_OF_SELLER_URL, FETCH_SERVICES_URL } from '../Utils/Urls'
+import useTheAxios from '../Axios/useAxios'
+import { axiosBasicInstance } from '../Axios/AxiosBasicInstance'
 
 const Home = () => {
 
     const dispatch = useDispatch();
     const currActivePage = useSelector(state => state.currActivePage)
+    const useAxios = useTheAxios()
 
 
     useEffect(() => {
@@ -21,18 +24,16 @@ const Home = () => {
         console.log("****************** home use Effect ***************************");
 
         if (currActivePage === "buyer") {
-            dispatch(fetchServices(FETCH_SERVICES_URL))
+            dispatch(fetchServices(FETCH_SERVICES_URL, axiosBasicInstance))
         } else {
-            dispatch(fetchServices(FETCH_SERVICES_OF_SELLER_URL))
+            dispatch(fetchServices(FETCH_SERVICES_OF_SELLER_URL, useAxios))
         }
 
-    }, [])
+    }, [currActivePage])
 
     return (
         <>
-            <Header />
             <Content />
-            <Footer />
         </>
     )
 }

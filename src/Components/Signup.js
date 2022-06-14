@@ -56,14 +56,14 @@ const Signup = ({ setOpen }) => {
     });
 
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (datas) => {
 
         try {
 
             // post signup form data to database if the request is success 
             // set access token and refresh token in the local storage
             // and set the userStatus state in redux set as True it will indiacate is online
-            const {data} = await axiosBasicInstance.post(SIGNUP_URL, data)
+            const {data} = await axiosBasicInstance.post(SIGNUP_URL, datas)
             console.log(data)
             setOpen({ bool: false, type: "" })
             dispatch(setUserStatus(data.refresh, data.access))
@@ -71,7 +71,7 @@ const Signup = ({ setOpen }) => {
         } catch (error) {
 
             // set the backend validation error to  hook form 
-            console.log("*************************************************", error.response);
+            console.log("*************************************************", error);
 
             const data = error.response.data;
 
