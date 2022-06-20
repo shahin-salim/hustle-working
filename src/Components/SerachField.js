@@ -25,8 +25,8 @@ export default function Filter({ marginLeftSize }) {
 
     const handleSearch = async (item) => {
         try {
-            const { data } = await axios.get(`http://localhost:8000/services/search/${item}`)
-            // const { data } = axiosBasicInstance.get(SEARCH_SERVICES + item)
+            // const { data } = await axios.get(`http://localhost:8000/services/search/${item}`)
+            const { data } = axiosBasicInstance.get(SEARCH_SERVICES + item)
             console.log(data);
             setSearchItem(data)
             setAllSearchItems(data)
