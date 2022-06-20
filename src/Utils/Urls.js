@@ -32,7 +32,7 @@ export const LOGOUT_URL = "/accounts/logout/"
 
 
 // Fetch all the services
-export const FETCH_SERVICES_URL = "/services/list_service/"
+export const FETCH_SERVICES_URL = "services/list_service/"
 
 
 // Get all the of service details

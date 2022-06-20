@@ -1,3 +1,4 @@
+import { BASE_URL } from "../../Utils/Urls";
 import { SET_SERVICES } from "../Constants/Services.constants"
 
 
@@ -5,6 +6,10 @@ import { SET_SERVICES } from "../Constants/Services.constants"
 export const fetchServices = (URL, AXIOS) =>
     async (dispatch, getState) => {
         try {
+
+            console.log(URL);
+            console.log(AXIOS);
+            console.log(BASE_URL);
 
             const { data } = await AXIOS.get(URL)
             console.log("fetched data");
