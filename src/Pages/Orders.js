@@ -3,12 +3,9 @@ import Button from '@mui/material/Button';
 import useTheAxios from '../Axios/useAxios';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import Header from '../Components/Header/Header';
-import Footer from '../Components/Footer/Footer';
 import Container from 'react-bootstrap/Container';
 import DataTableMaterial from '../Components/DataTableMaterial';
 import { axiosBasicInstance } from '../Axios/AxiosBasicInstance';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -32,7 +29,6 @@ const Orders = () => {
             // if buyer order data is need pass buyer as after 'order/' url
 
             const { data } = await useAxios.get(`/order/${currActivePage}`)
-            // const { data } = await axios.get(`http://localhost:8000/order/${currActivePage}`)
             console.log(data);
             setOrders(data)
             setBackupOrders(data)
@@ -69,7 +65,7 @@ const Orders = () => {
             }
         }
 
-
+        console.log(data, "      ============ data ==========");
 
         return (
             <>
@@ -81,12 +77,20 @@ const Orders = () => {
                 <TableCell align="center">{data.date}</TableCell>
                 <TableCell align="center">
                     {
-                        !data.buyer_completion_status ?
-                            <Button variant="outlined" onClick={() => handleFilter(data.id)}>
-                                not completed
-                            </Button>
+                        currActivePage === "buyer" ?
+                            <>
+                                {
+                                    !data.buyer_completion_status ?
+                                        <Button variant="outlined" onClick={() => handleFilter(data.id)}>
+                                            not completed
+                                        </Button>
+                                        :
+                                        "completed"
+                                }
+                            </>
+
                             :
-                            "completed"
+                            data.buyer_completion_status ? "order completed" : "not completed"
                     }
                 </TableCell>
             </>
@@ -94,23 +98,31 @@ const Orders = () => {
     }
 
 
+    var tableHeading = ["Seller", "Amount", "Delivery time", "date", "order status"]
+    if (currActivePage === "buyer") {
+        // tableHeading.push("Mark as completed")
+        tableHeading[tableHeading.length - 1] = "Mark as completed"
+    }
+
+    console.log(tableHeading)
+
     useEffect(() => {
         fetchOrderDetials()
     }, [currActivePage])
+
+    const ROWCOUNT = 9
 
 
     return (
         <>
             <Container style={{ maxWidth: "1500px", padding: "2rem 0rem 1.5rem 0rem" }}>
                 <DataTableMaterial
-                    tableHeading={
-                        ["Seller", "Amount", "Delivery time", "date", "Mark as completed"]   // headline of the table
-                    }
-                    lengthOfPagination={Math.ceil(orders.length / 6)}  // length of pagiantion is the lenth of data / 6
+                    tableHeading={tableHeading}// headline of the table
+                    lengthOfPagination={Math.ceil(orders.length / ROWCOUNT)}  // length of pagiantion is the lenth of data / ROWCOUNT
                     title={"Orders"}                                   // title of the page
                     page={page}                                        // current pagination no
                     setPage={setPage}                                  // setState of pagination
-                    datas={orders.slice(6 * page - 6, 6 * page)}       // data map in table. 6 is the pagination limit in the page
+                    datas={orders.slice(ROWCOUNT * page - ROWCOUNT, ROWCOUNT * page)}       // data map in table. 6 is the pagination limit in the page
                     RowComponent={ShowOrderDetails}                    // this is each row. this funtion called as row and pass data to it
                     selectTagFileringItems={["Seller", "Amount"]}      // filter option in the page. this items are showed inside the select tag
                     filterFunc={(type, value) => {                     // filter funtion takes 2 arg. type is the selected  item value is the value entered
@@ -121,7 +133,7 @@ const Orders = () => {
                             )
                         }
                         else if (type == "Amount") {
-                            setOrders(backupOrders.filter(data => data.payment_id.amount > value))
+                            setOrders(backupOrders.filter(data => data.payment_id && data.payment_id.amount > value))
                         }
 
                         if (!value) {

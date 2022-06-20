@@ -19,6 +19,7 @@ import Footer from './Components/Footer/Footer';
 import { LabelBottomNavigation } from "./Components/BottumNavigationBar"
 import { Container } from '@mui/material';
 import "./App.css"
+import { SellerStatistics } from './Pages/SellerStatistics';
 const App = () => {
   const dispatch = useDispatch()
   const screenSize = useWindowSize()
@@ -104,6 +105,7 @@ const App = () => {
           {/* =========================== Seller Router =========================== */}
           <Route path="/create-gig" element={<CreateGig />} />
           <Route path="/edit-gig/:id" element={<CreateGig />} />
+          <Route path="/statistics" element={<SellerStatistics />} />
           {/* =========================== Seller Router =========================== */}
 
         </Routes>

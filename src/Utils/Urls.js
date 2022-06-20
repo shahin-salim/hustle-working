@@ -67,8 +67,15 @@ export const GET_OR_CREATE_CONVERSATION_ID_URL = "/chat/"
 // create seller
 export const CRUD_SELLER_URL = "/seller/seller/"
 
+// get category
+export const GET_CATEGORY_URL = "category/"
+
 // get subcategory
 export const GET_SUBCATEGORY_URL = "subcategory/"
+
+
+// search 
+export const SEARCH_SERVICES = "services/search/"
 
 // ======================== BACKEND SERVER URLS ENDS ===========================
 

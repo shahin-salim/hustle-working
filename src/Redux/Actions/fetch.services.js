@@ -5,9 +5,11 @@ import { SET_SERVICES } from "../Constants/Services.constants"
 export const fetchServices = (URL, AXIOS) =>
     async (dispatch, getState) => {
         try {
+
             const { data } = await AXIOS.get(URL)
             console.log("fetched data");
             console.log(data);
+
 
             dispatch({
                 type: SET_SERVICES,
@@ -17,4 +19,15 @@ export const fetchServices = (URL, AXIOS) =>
 
             console.log(error)
         }
+    }
+
+
+export const searchingServices = (data) =>
+    async (dispatch, getState) => {
+
+        dispatch({
+            type: SET_SERVICES,
+            payload: data
+        })
+
     }

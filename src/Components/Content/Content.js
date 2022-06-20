@@ -21,44 +21,50 @@ const contentTitleStyle = {
 
 const HomeBody = () => {
 
+    const navigate = useNavigate()
+
     const services = useSelector(state => state.services)
     const currActivePage = useSelector(state => state.currActivePage)
-
-    const navigate = useNavigate()
 
     return (
         <Container style={{ maxWidth: "1500px", padding: "2rem 0rem 1.5rem 0rem" }}>
 
             <div>
-                <h4 style={contentTitleStyle}>Most popular Gigs in Cartoons & Comics </h4>
+                <h4 style={contentTitleStyle}>
+                    Most popular Gigs in Cartoons & Comics
+                </h4>
 
                 <Row>
-                    {/* ============== add new  services only for seller ================= */}
 
-                    {currActivePage === "seller" &&
+                    {/* ============== add new  services only for seller ================= */}
+                    {
+                        currActivePage === "seller" &&
+
                         <Col sm={12} md={2} xl={2}
                             className='add-new-gig'
                             onClick={() => navigate("/create-gig")}
                         >
                             <AddCircleOutlineOutlinedIcon style={{ fontSize: "8rem" }} />
                             <span>Add New Gig</span>
-                        </Col>}
+                        </Col>
 
+                    }
                     {/* ============== add new  services only for seller ================= */}
 
 
                     {/* ============== list services ================= */}
                     {
-                        services && services.map(({
-                            discription, id,
-                            image1,
-                            image2,
-                            seller_id,
-                            starting_at,
-                            sub_category_id,
-                            title,
-                            user
-                        }, index) =>
+                        services && services.map((
+                            {
+                                discription, id,
+                                image1,
+                                image2,
+                                seller_id,
+                                starting_at,
+                                sub_category_id,
+                                title,
+                                user
+                            }, index) =>
                             <Col key={index} sm={12} md={2} xl={2}>
                                 <Card
                                     user={user}
@@ -79,7 +85,7 @@ const HomeBody = () => {
                 </Row>
 
             </div>
-        </Container>
+        </Container >
 
     )
 }
